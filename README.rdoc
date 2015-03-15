@@ -1,0 +1,3 @@
+== Flight Booker ==
+
+This is a rails application for booking flights following project guidlines provided by The Odin Project here: http://www.theodinproject.com/ruby-on-rails/building-advanced-forms?ref=lnav
