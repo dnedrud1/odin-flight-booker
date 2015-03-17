@@ -6,6 +6,7 @@ class FlightsController < ApplicationController
     to = params[:to_id]
     from = params[:from_id]
     time = params[:date_id]
+    @num_tickets = params[:num_tickets_id]
     @search_results = Flight.all.select { |flight| flight.matches_search?(to,from,time) }
   end
 end

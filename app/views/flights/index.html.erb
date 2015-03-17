@@ -17,11 +17,16 @@
 
 <% if @search_results.any? %>
   <h1>Search Results</h1>
-  <% @search_results.each do |result| %>
-    <%= result.datetime_formatted %>
-    <ul>
-      <li>Departing Airport: <%= result.from_airport.code %></li>
-      <li>Arriving Airport: <%= result.to_airport.code %></li>
-    </ul>
+  <%= form_tag(root_path, method: "get") do %>
+    <% @search_results.each do |result| %>
+      <%= radio_button_tag("flight_id", result.id) %>
+      <%= hidden_field_tag(:num_tickets_id, @num_tickets) %>
+      <%= result.datetime_formatted %>
+      <ul>
+        <li>Departing Airport: <%= result.from_airport.code %></li>
+        <li>Arriving Airport: <%= result.to_airport.code %></li>
+      </ul>
+    <% end %>
+    <%= submit_tag("Select Flight") %>
   <% end %>
 <% end %>
