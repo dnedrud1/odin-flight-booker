@@ -1,0 +1,27 @@
+<h1>Flight Booker</h1>
+
+
+
+<%= form_tag(root_path, method: "get") do %>
+  <%= label_tag(:from, "Departing Airport:") %>
+  <%= select_tag(:from_id, options_for_select(@airport_options)) %>
+  <%= label_tag(:to, "Arriving Airport:") %>
+  <%= select_tag(:to_id, options_for_select(@airport_options)) %>
+  <%= label_tag(:num_tickets, "Number of Tickets:") %>
+  <%= select_tag(:num_tickets_id, options_for_select([1,2,3,4])) %>
+  <%= label_tag(:date, "Date of Departure:") %>
+  <%= select_tag(:date_id, options_for_select(@date_options)) %>
+  <%= submit_tag("Search") %>
+<% end %>
+
+
+<% if @search_results.any? %>
+  <h1>Search Results</h1>
+  <% @search_results.each do |result| %>
+    <%= result.datetime_formatted %>
+    <ul>
+      <li>Departing Airport: <%= result.from_airport.code %></li>
+      <li>Arriving Airport: <%= result.to_airport.code %></li>
+    </ul>
+  <% end %>
+<% end %>
