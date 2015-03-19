@@ -5,10 +5,8 @@ class Flight < ActiveRecord::Base
     has_many :bookings, foreign_key: "flight_id", dependent:   :destroy
     has_many :passengers, through: :bookings
     
-    validates :departing_time, presence: true
-    validates :duration, presence: true
-    validates :from_airport_id, presence: true
-    validates :to_airport_id, presence: true
+    accepts_nested_attributes_for :passengers
+    
     
   def date_formatted
     departing_time.strftime("%m/%d/%Y")

@@ -1,0 +1,24 @@
+<h1>Complete Booking</h1>
+
+<%= form_for @flight, url: bookings_path, html:{method:'post'} do |f| %>
+  <%= f.hidden_field(:flight_id, :value => @flight.id) %>
+  <h3><%= @flight.datetime_formatted %></h3>
+  <ul>
+      <li>Departing From: <%= @flight.from_airport.code %></li>
+      <li>Arriving At: <%= @flight.to_airport.code %></li>
+      <li>Duration: <%= @flight.duration %></li>
+  </ul>
+
+    <p>Add Passenger</p>
+    <%= f.fields_for :passengers do |passenger_f| %>
+      <%= f.label :name %>
+      <%= passenger_f.text_field :name %>
+      <%= f.label :email %>
+      <%= passenger_f.text_field :email %>
+    <% end %>
+
+    <br>
+
+  <br>
+  <%= f.submit("Submit Booking") %>
+<% end %>

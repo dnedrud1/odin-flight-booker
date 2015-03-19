@@ -17,7 +17,7 @@
 
 <% if @search_results.any? %>
   <h1>Search Results</h1>
-  <%= form_tag(XXX, method: "get") do %>
+  <%= form_tag(new_booking_path, method: "get") do %>
     <% @search_results.each do |result| %>
       <%= radio_button_tag("flight_id", result.id) %>
       <%= hidden_field_tag(:num_tickets_id, @num_tickets) %>
