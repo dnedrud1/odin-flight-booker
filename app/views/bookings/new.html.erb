@@ -1,6 +1,8 @@
 <h1>Complete Booking</h1>
 
 <%= form_for @flight, url: bookings_path, html:{method:'post'} do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  
   <%= f.hidden_field(:flight_id, :value => @flight.id) %>
   <h3><%= @flight.datetime_formatted %></h3>
   <ul>

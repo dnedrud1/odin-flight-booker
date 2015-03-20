@@ -8,5 +8,10 @@ class FlightsController < ApplicationController
     time = params[:date_id]
     @num_tickets = params[:num_tickets_id]
     @search_results = Flight.all.select { |flight| flight.matches_search?(to,from,time) }
+    #flash.now[:error] = "No flights match criteria" if @search_results.empty?
+  end
+  
+  def show
+    @flight = Flight.find(params[:id])
   end
 end

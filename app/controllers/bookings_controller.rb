@@ -11,8 +11,15 @@ class BookingsController < ApplicationController
     @passengers = passenger_params[:passengers_attributes]
     @flight = Flight.find(flight_params[:flight_id])
     @passengers.each do |key, value|
-      @passenger = Passenger.create(value)
-      @booking = @flight.bookings.create(passenger_id: @passenger.id)
+      @passenger = Passenger.new(value)
+      @booking = @flight.bookings.new(passenger_id: @passenger.id)
+      if @passenger.save && @booking.save
+        flash[:success] = "Flight sucessfully booked!"
+        redirect_to @flight
+      else
+        flash[:error] = "Flight not booked"
+        redirect_to root_path
+      end
     end
   end
   
