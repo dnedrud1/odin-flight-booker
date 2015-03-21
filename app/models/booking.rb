@@ -1,7 +1,8 @@
 class Booking < ActiveRecord::Base
-  belongs_to :passenger
   belongs_to :flight
+  has_many :passengers, dependent: :destroy
   
-  validates :passenger_id, presence: true
+  accepts_nested_attributes_for :passengers
+  
   validates :flight_id, presence: true
 end

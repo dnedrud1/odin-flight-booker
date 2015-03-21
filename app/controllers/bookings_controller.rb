@@ -4,32 +4,31 @@ class BookingsController < ApplicationController
     
     @flight = Flight.find(params[:flight_id])
     @num_tickets = params[:num_tickets_id].to_i
-    @num_tickets.times { @flight.passengers.build }
+    @num_tickets.times { @booking.passengers.build }
   end
   
   def create
-    @passengers = passenger_params[:passengers_attributes]
-    @flight = Flight.find(flight_params[:flight_id])
-    @passengers.each do |key, value|
-      @passenger = Passenger.new(value)
-      @booking = @flight.bookings.new(passenger_id: @passenger.id)
-      if @passenger.save && @booking.save
-        flash[:success] = "Flight sucessfully booked!"
-        redirect_to @flight
-      else
-        flash[:error] = "Flight not booked"
-        redirect_to root_path
-      end
+    @booking = Booking.new(booking_params)
+    if @booking.save
+      flash[:success] = "Booking Created!"
+      redirect_to @booking
+    else
+      flash.now[:error] = "Booking not saved"
+      render 'new'
     end
+  end
+  
+  def show
+    @booking = Booking.find(params[:id])
   end
   
   private
   
-  def passenger_params
-    params.require(:flight).permit(passengers_attributes: [:id, :name, :email])
+  def booking_params
+    params.require(:booking).permit(:flight_id, passengers_attributes: [:id, :name, :email])
   end
   
-  def flight_params
-    params.require(:flight).permit(:flight_id)
+  def passengers_params
+    params.require(:booking).permit(:flight_id, passengers_attributes: [:id, :name, :email])
   end
 end

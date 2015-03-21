@@ -1,6 +1,6 @@
 <h1>Complete Booking</h1>
 
-<%= form_for @flight, url: bookings_path, html:{method:'post'} do |f| %>
+<%= form_for @booking do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   
   <%= f.hidden_field(:flight_id, :value => @flight.id) %>
@@ -17,9 +17,8 @@
       <%= passenger_f.text_field :name %>
       <%= f.label :email %>
       <%= passenger_f.text_field :email %>
+      <br>
     <% end %>
-
-    <br>
 
   <br>
   <%= f.submit("Submit Booking") %>

@@ -2,10 +2,7 @@ class Flight < ActiveRecord::Base
   belongs_to :to_airport, class_name: "Airport"
   belongs_to :from_airport, class_name: "Airport"
   
-  has_many :bookings, foreign_key: "flight_id", dependent:   :destroy
-  has_many :passengers, through: :bookings
-  
-  accepts_nested_attributes_for :passengers
+  has_many :bookings
   
   validates :departing_time, presence: true
   validates :duration, presence: true
