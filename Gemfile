@@ -7,6 +7,8 @@ gem 'rails', '4.1.6'
 gem 'sqlite3'
 # Bootstrap!
 gem 'bootstrap-sass', '~> 3.3.3'
+# RSpec!
+#gem "rspec-rails", :group => [:development, :test]
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
@@ -40,3 +42,14 @@ gem 'spring',        group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+group :development, :test do 
+    gem 'rspec-rails' 
+    gem 'factory_girl_rails' 
+end 
+
+group :test do 
+    gem 'faker' 
+    gem 'capybara' 
+    gem 'guard-rspec' 
+    gem 'launchy' 
+end 
