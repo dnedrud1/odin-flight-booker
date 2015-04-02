@@ -10,6 +10,11 @@ class BookingsController < ApplicationController
   def create
     @booking = Booking.new(booking_params)
     if @booking.save
+      @emails = booking_params[:passengers_attributes].values.map { |passenger| passenger["email"] }
+      @emails.each do |email|
+        PassengerMailer.thank_you_email(email, @booking).deliver
+      end
+      
       flash[:success] = "Booking Created!"
       redirect_to @booking
     else
@@ -28,7 +33,4 @@ class BookingsController < ApplicationController
     params.require(:booking).permit(:flight_id, passengers_attributes: [:id, :name, :email])
   end
   
-  def passengers_params
-    params.require(:booking).permit(:flight_id, passengers_attributes: [:id, :name, :email])
-  end
 end
